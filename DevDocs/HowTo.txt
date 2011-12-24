@@ -1,0 +1,22 @@
+Pour une classe nommée MaClasse :
+
+======= Dans le .h ======
+private:
+	static MaClasse* _instance;
+	MaClasse(); // Constructeur privé !
+public:
+	static MaClasse* getInstance();
+
+====== Dans le .cc ======
+
+MaClasse* MaClasse::_instance = NULL;
+
+MaClasse::MaClasse() {
+
+}
+
+MaClasse* MaClasse::getInstance() {
+	if(_instance == NULL)
+		_instance = new MaClasse();
+	return _instance;
+}
