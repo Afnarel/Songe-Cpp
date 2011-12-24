@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.6.0_22" class="java.beans.XMLDecoder">
+ <object class="com.horstmann.violet.ClassDiagramGraph">
+  <void method="addNode">
+   <object id="ClassNode0" class="com.horstmann.violet.ClassNode">
+    <void property="attributes">
+     <void property="text">
+      <string>sf::RenderWindow *_app;</string>
+     </void>
+    </void>
+    <void property="methods">
+     <void property="text">
+      <string>virtual void init() = 0;
+virtual void simpleEvents(const sf::Event &amp;event) = 0;
+virtual void complexEvents() = 0;
+virtual void update() = 0;
+virtual void render() = 0;</string>
+     </void>
+    </void>
+    <void property="name">
+     <void property="text">
+      <string>State</string>
+     </void>
+    </void>
+   </object>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>206.51365692002176</double>
+     <double>21.37775097490477</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object id="ClassNode1" class="com.horstmann.violet.ClassNode">
+    <void property="methods">
+     <void property="text">
+      <string>static Gameplay* getInstance(bool reinit = false);
+void init();
+void simpleEvents(const sf::Event &amp;event);
+void complexEvents();
+void update();
+void render();</string>
+     </void>
+    </void>
+    <void property="name">
+     <void property="text">
+      <string>Gameplay
+(Singleton)</string>
+     </void>
+    </void>
+   </object>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>7.513656920021759</double>
+     <double>255.37775097490493</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object id="ClassNode2" class="com.horstmann.violet.ClassNode">
+    <void property="methods">
+     <void property="text">
+      <string>static Gameplay* getInstance(bool reinit = false);
+void init();
+void simpleEvents(const sf::Event &amp;event);
+void complexEvents();
+void update();
+void render();</string>
+     </void>
+    </void>
+    <void property="name">
+     <void property="text">
+      <string>Menu
+(Singleton)</string>
+     </void>
+    </void>
+   </object>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>445.51365692002184</double>
+     <double>262.3777509749049</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object id="ClassNode3" class="com.horstmann.violet.ClassNode">
+    <void property="methods">
+     <void property="text">
+      <string>static Gameplay* getInstance(bool reinit = false);
+void init();
+void simpleEvents(const sf::Event &amp;event);
+void complexEvents();
+void update();
+void render();</string>
+     </void>
+    </void>
+    <void property="name">
+     <void property="text">
+      <string>MainMenu
+(Singleton)</string>
+     </void>
+    </void>
+   </object>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>448.51365692002173</double>
+     <double>442.3777509749049</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object class="com.horstmann.violet.ClassNode">
+    <void property="attributes">
+     <void property="text">
+      <string>enum StateName {
+    MAINMENU,
+    GAMEPLAY
+};</string>
+     </void>
+    </void>
+    <void property="methods">
+     <void property="text">
+      <string>static void enterState(StateName name);
+static State* getCurrentState();</string>
+     </void>
+    </void>
+    <void property="name">
+     <void property="text">
+      <string>StateManager</string>
+     </void>
+    </void>
+   </object>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>681.0</double>
+     <double>13.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object class="com.horstmann.violet.ClassNode">
+    <void property="methods">
+     <void property="text">
+      <string>static Globals* getInstance();
+sf::RenderWindow * getApp();
+std::string getVoice(std::string name);
+std::string getFont(std::string name);</string>
+     </void>
+    </void>
+    <void property="name">
+     <void property="text">
+      <string>Globals</string>
+     </void>
+    </void>
+   </object>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>680.0</double>
+     <double>146.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.ClassRelationshipEdge">
+    <void property="bentStyle">
+     <object class="com.horstmann.violet.BentStyle" field="VHV"/>
+    </void>
+    <void property="endArrowHead">
+     <object class="com.horstmann.violet.ArrowHead" field="TRIANGLE"/>
+    </void>
+   </object>
+   <object idref="ClassNode1"/>
+   <object idref="ClassNode0"/>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.ClassRelationshipEdge">
+    <void property="bentStyle">
+     <object class="com.horstmann.violet.BentStyle" field="VHV"/>
+    </void>
+    <void property="endArrowHead">
+     <object class="com.horstmann.violet.ArrowHead" field="TRIANGLE"/>
+    </void>
+   </object>
+   <object idref="ClassNode2"/>
+   <object idref="ClassNode0"/>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.ClassRelationshipEdge">
+    <void property="bentStyle">
+     <object class="com.horstmann.violet.BentStyle" field="VHV"/>
+    </void>
+    <void property="endArrowHead">
+     <object class="com.horstmann.violet.ArrowHead" field="TRIANGLE"/>
+    </void>
+   </object>
+   <object idref="ClassNode3"/>
+   <object idref="ClassNode2"/>
+  </void>
+ </object>
+</java>

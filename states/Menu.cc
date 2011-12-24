@@ -1,30 +1,18 @@
-#include "MainMenu.h"
+#include "Menu.h"
 
 using namespace std;
 using namespace sf;
 
-MainMenu* MainMenu::_instance = NULL;
-
-MainMenu::MainMenu() : State() {
+Menu::Menu() : State() {
 	
-}
-
-MainMenu* MainMenu::getInstance(bool reinit) {
-	if(_instance == NULL) {
-		_instance = new MainMenu();
-		reinit = true;
-	}
-	if(reinit) {
-		_instance->init();
-	}
-	return _instance;
 }
 
 /* ************ *
  * Main methods *
  * ************ */
 
-void MainMenu::init() {
+void Menu::init() {
+	/*
 	// Chargement à partir d'un fichier sur le disque
 	if(!_font.LoadFromFile(Globals::getInstance()->getFont("sansation")))
 		exit(EXIT_SUCCESS);
@@ -33,9 +21,11 @@ void MainMenu::init() {
 	_text.SetFont(_font);
 	_text.SetCharacterSize(50);
 	_text.SetColor(Color::Red);
+	*/
 }
 
-void MainMenu::simpleEvents(const sf::Event &event) {
+void Menu::simpleEvents(const sf::Event &event) {
+	/*
 	switch(event.Type) {
 		case Event::KeyPressed:
 			switch(event.Key.Code) {
@@ -49,16 +39,17 @@ void MainMenu::simpleEvents(const sf::Event &event) {
 			}
 		default: break;
 	}
+	*/
 }
 
-void MainMenu::complexEvents() {
+void Menu::complexEvents() {
 	
 }
 
-void MainMenu::update() {
+void Menu::update() {
 	
 }
 
-void MainMenu::render() {
-	_app->Draw(_text);
+void Menu::render() {
+	//_app->Draw(_text);
 }

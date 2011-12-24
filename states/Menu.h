@@ -1,17 +1,12 @@
-#ifndef __MAIN_MENU__
-#define __MAIN_MENU__
+#ifndef __MENU__
+#define __MENU__
 
-#include "StateManager.h"
+#include "State.h"
 
-class MainMenu : public State {
-	private:
-		static MainMenu *_instance;
-		MainMenu();
-
-		sf::Font _font;
-		sf::Text _text;
+class Menu : public State {
+	protected:
+		Menu();
 	public:
-		static MainMenu* getInstance(bool reinit = false);
 		void init();
 		void simpleEvents(const sf::Event &event);
 		void complexEvents();

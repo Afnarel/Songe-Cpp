@@ -1,6 +1,6 @@
 CC= g++ -lsfml-system -lsfml-window -lsfml-graphics
 
-OBJECTS= main.o Globals.o StateManager.o State.o MainMenu.o Gameplay.o
+OBJECTS= main.o Globals.o StateManager.o State.o Menu.o MainMenu.o Gameplay.o
 
 TARGET= songe
 
@@ -19,7 +19,10 @@ StateManager.o : states/StateManager.h states/State.h states/MainMenu.h states/G
 State.o : states/State.h utils/Globals.h
 	$(CC) -o State.o -c states/State.cc
 
-MainMenu.o : states/MainMenu.h states/StateManager.h 
+Menu.o : states/Menu.h states/State.h 
+	$(CC) -o Menu.o -c states/Menu.cc
+
+MainMenu.o : states/MainMenu.h states/Menu.h states/StateManager.h
 	$(CC) -o MainMenu.o -c states/MainMenu.cc
 
 Gameplay.o : states/Gameplay.h states/StateManager.h
