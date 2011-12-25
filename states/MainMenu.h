@@ -9,6 +9,10 @@ class MainMenu : public Menu {
 		static MainMenu *_instance;
 		MainMenu();
 
+		// Redefinition des methodes virtuelles de Menu
+		std::vector<std::string> initOptions();
+		std::vector<std::string> initOptionsVoices();
+
 	public:
 		static MainMenu* getInstance(bool reinit = false);
 };

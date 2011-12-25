@@ -5,6 +5,9 @@ using namespace std;
 State* StateManager::currentState = NULL;
 
 void StateManager::enterState(StateName name) {
+	if(currentState != NULL)
+		currentState->onLeave();
+
 	switch(name) {
 		case MAINMENU:
 			currentState = MainMenu::getInstance();
@@ -13,9 +16,12 @@ void StateManager::enterState(StateName name) {
 			currentState = Gameplay::getInstance();
 			break;
 		default:
-			cerr << "StateName " << name << " doesn't exist!" << endl;
+			ostringstream oss;
+			oss << "StateName " << name << " doesn't exist!";
+			Globals::getInstance()->error(oss.str());
 			break;
 	}
+	currentState->onEnter();
 }
 
 State* StateManager::getCurrentState() {

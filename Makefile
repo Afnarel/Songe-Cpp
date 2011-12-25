@@ -1,4 +1,4 @@
-CC= g++ -lsfml-system -lsfml-window -lsfml-graphics
+CC= g++ -lsfml-system -lsfml-window -lsfml-graphics -lsfml-audio
 
 OBJECTS= main.o Globals.o StateManager.o State.o Menu.o MainMenu.o Gameplay.o
 

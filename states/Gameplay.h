@@ -13,6 +13,9 @@ class Gameplay : public State {
 	public:
 		static Gameplay* getInstance(bool reinit = false);
 		void init();
+		void reset();
+		void onEnter();
+		void onLeave();
 		void simpleEvents(const sf::Event &event);
 		void complexEvents();
 		void update();

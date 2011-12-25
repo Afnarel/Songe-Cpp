@@ -14,7 +14,14 @@ class Globals {
 		sf::RenderWindow * getApp();
 
 		std::string getVoice(std::string name);
+		std::string getMusic(std::string name);
 		std::string getFont(std::string name);
+		void error(std::string error);
+
+		/*
+		template <typename T>
+		std::string toString(T t);
+		*/
 };
 
 #endif

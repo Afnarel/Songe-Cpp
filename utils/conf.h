@@ -3,8 +3,10 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <sstream>
 #include <vector>
 #include <string>
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
 namespace Conf {

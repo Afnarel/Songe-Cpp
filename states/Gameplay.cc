@@ -12,10 +12,10 @@ Gameplay::Gameplay() : State() {
 Gameplay* Gameplay::getInstance(bool reinit) {
 	if(_instance == NULL) {
 		_instance = new Gameplay();
-		reinit = true;
+		_instance->init();
 	}
 	if(reinit) {
-		_instance->init();
+		_instance->reset();
 	}
 	return _instance;
 }
@@ -29,6 +29,18 @@ void Gameplay::init() {
 	_text.SetFont(_font);
 	_text.SetCharacterSize(50);
 	_text.SetColor(Color::Red);
+}
+
+void Gameplay::reset() {
+	
+}
+
+void Gameplay::onEnter() {
+	
+}
+
+void Gameplay::onLeave() {
+	
 }
 
 void Gameplay::simpleEvents(const sf::Event &event) {
