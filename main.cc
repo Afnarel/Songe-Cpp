@@ -14,8 +14,12 @@ int main() {
 	else {
 		app->Create(VideoMode(Conf::WINDOW_WIDTH, Conf::WINDOW_HEIGHT, 32), 
 		Conf::WINDOW_TITLE, Style::Close | Style::Titlebar);
+		VideoMode d = VideoMode::GetDesktopMode();
+		app->SetPosition(d.Width/2 - Conf::WINDOW_WIDTH/2, d.Height/2 - Conf::WINDOW_HEIGHT/2);
 	}
 	app->SetFramerateLimit(Conf::FRAMERATE_LIMIT);
+	app->EnableVerticalSync(Conf::ENABLE_VSYNC);
+	app->ShowMouseCursor(Conf::SHOW_CURSOR);
 
 	StateManager::enterState(StateManager::MAINMENU);
 

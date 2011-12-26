@@ -12,6 +12,8 @@
 
 namespace Conf {
 	const bool FULLSCREEN = false;
+	const bool ENABLE_VSYNC = true;
+	const bool SHOW_CURSOR = true;
 
 	// If not in fullscreen mode
 	const int WINDOW_WIDTH = 800;
