@@ -6,6 +6,7 @@
 #include <sstream>
 #include <vector>
 #include <string>
+#include <algorithm>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 

@@ -52,7 +52,7 @@ void Gameplay::simpleEvents(const sf::Event &event) {
 					break;
 				case Keyboard::S:
 					cout << "On change pour MainMenu" << endl;
-					StateManager::enterState(StateManager::MAINMENU);
+					StateManager::enterState(StateManager::MAINMENU, true);
 					break;
 			}
 		default: break;

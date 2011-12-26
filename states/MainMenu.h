@@ -15,6 +15,9 @@ class MainMenu : public Menu {
 
 	public:
 		static MainMenu* getInstance(bool reinit = false);
+
+		// Surcharge des methodes de Menu
+		void simpleEvents(const sf::Event &event);
 };
 
 #endif

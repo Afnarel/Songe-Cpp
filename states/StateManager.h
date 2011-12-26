@@ -15,7 +15,7 @@ class StateManager {
 			GAMEPLAY
 		};
 
-		static void enterState(StateName name);
+		static void enterState(StateName name, bool reinit=false);
 		static State* getCurrentState();
 };
 

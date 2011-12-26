@@ -1,0 +1,3 @@
+g++ -o clock clock.o -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
+Le module graphics requiert la bibliothèque freetype ;
+Le module audio requiert lui libsndfile et openal.
