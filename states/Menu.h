@@ -12,10 +12,13 @@ class Menu : public State {
 
 		const sf::Color TITLE_COLOR;
 		const sf::Color TITLE_BORDER_COLOR;
+		const sf::Color TITLE_TEXT_COLOR;
 		const sf::Color ITEM_COLOR;
 		const sf::Color ITEM_BORDER_COLOR;
+		const sf::Color ITEM_TEXT_COLOR;
 		const sf::Color SEL_ITEM_COLOR;
 		const sf::Color SEL_ITEM_BORDER_COLOR;
+		const sf::Color SEL_ITEM_TEXT_COLOR;
 
 		const std::string FONT_NAME;
 		sf::Font _font;
@@ -28,6 +31,8 @@ class Menu : public State {
 		int _selItemHeight;
 		int _selItemWidth;
 
+		int _fontSize;
+
 		// Background music
 		std::string _musicFile;
 		sf::Music _music;
@@ -37,12 +42,16 @@ class Menu : public State {
 		std::string _titleVoice;
 		sf::Music _titleSound;
 		sf::Shape _titleShape;
+		sf::Text _titleText;
 
 		// Options
 		std::vector<std::string> _options;
 		std::vector<std::string> _optionsVoices;
 		std::vector<sf::Music*> _optionsSounds;
 		std::vector<sf::Shape*> _optionsShapes;
+		std::vector<sf::Text*> _optionsTexts;
+
+		bool _firstPlayedOnce;
 
 		// Virtual methods
 		virtual std::vector<std::string> initOptions() = 0;
@@ -50,9 +59,11 @@ class Menu : public State {
 
 		// Other methods
 		void createTitleShape();
+		void createTitleText();
 		void createItemShape(int index, sf::Shape* rectangle);
 		void createRectangle(sf::Shape* rectangle, int x, int y, int w, int h,
 			const sf::Color &color, const sf::Color &borderColor);
+		void createItemText(int index, sf::Text* text);
 		void setSelected(int i);
 
 	public:

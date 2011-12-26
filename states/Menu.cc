@@ -8,10 +8,13 @@ Menu::Menu(string title, string titleVoice, string musicFile) :
 	FONT_NAME("sansation"),
 	TITLE_COLOR(Color(250,240,240)),
 	TITLE_BORDER_COLOR(Color(255,255,255)),
+	TITLE_TEXT_COLOR(Color::Black),
 	ITEM_COLOR(Color(0,0,200)),
 	ITEM_BORDER_COLOR(Color(0,0,220)),
+	ITEM_TEXT_COLOR(Color::White),
 	SEL_ITEM_COLOR(Color(250,240,240)),
-	SEL_ITEM_BORDER_COLOR(Color(255,255,255)) {
+	SEL_ITEM_BORDER_COLOR(Color(255,255,255)),
+	SEL_ITEM_TEXT_COLOR(Color::Black) {
 
 	_selected = 0;
 	_titleHeight = Globals::getInstance()->getApp()->GetHeight()/7;
@@ -20,6 +23,8 @@ Menu::Menu(string title, string titleVoice, string musicFile) :
 	_itemWidth = 4 * Globals::getInstance()->getApp()->GetWidth()/5;
 	_selItemHeight = Globals::getInstance()->getApp()->GetHeight()/7;
 	_selItemWidth = 9 * Globals::getInstance()->getApp()->GetWidth()/10;
+
+	_fontSize = _itemHeight / 2;
 
 	_title = title;
 	_titleVoice = titleVoice;
@@ -33,11 +38,13 @@ Menu::Menu(string title, string titleVoice, string musicFile) :
 void Menu::init() {
 	_options = initOptions();
 	_optionsVoices = initOptionsVoices();
+	_firstPlayedOnce = false;
 
 	// Load background music
 	if(!_music.OpenFromFile(_musicFile)) {
 		Globals::getInstance()->error("File " + _musicFile + " could not be found.");
 	}
+	_music.SetLoop(true);
 
 	// Load title sound
 	if(!_titleSound.OpenFromFile(_titleVoice)) {
@@ -60,28 +67,27 @@ void Menu::init() {
 
 	// Title shape
 	createTitleShape();
+	// Title shape
+	createTitleText();
 
-	// Options shapes
 	for(size_t i=0; i<_options.size(); i++) {
+		// Options shapes
 		Shape* rectangle = new Shape();
 		createItemShape(i, rectangle);
 
 		_optionsShapes.push_back(rectangle);
+
+		// Options texts
+		Text* text = new Text();
+		createItemText(i, text);
+
+		_optionsTexts.push_back(text);
 	}
-	/*
-	// Chargement à partir d'un fichier sur le disque
-	if(!_font.LoadFromFile(Globals::getInstance()->getFont("sansation")))
-		exit(EXIT_SUCCESS);
-	
-	_text.SetString("MainMenu");
-	_text.SetFont(_font);
-	_text.SetCharacterSize(50);
-	_text.SetColor(Color::Red);
-	*/
 }
 
 void Menu::reset() {
 	setSelected(0);
+	_firstPlayedOnce = false;
 }
 
 void Menu::onEnter() {
@@ -98,32 +104,27 @@ void Menu::simpleEvents(const sf::Event &event) {
 		case Event::KeyPressed:
 			switch(event.Key.Code) {
 				case Keyboard::Up:
+				case Keyboard::Left:
 					if(_selected - 1 >= 0) {
 						setSelected(_selected-1);
 					}
 					else {
 						setSelected(_options.size()-1);
 					}
-					_optionsSounds[_selected]->Play();
+					if(_titleSound.GetStatus() != SoundSource::Playing)
+						_optionsSounds[_selected]->Play();
 					break;
 				case Keyboard::Down:
+				case Keyboard::Right:
 					if(_selected + 1 <= _options.size()-1) {
 						setSelected(_selected+1);
 					}
 					else {
 						setSelected(0);
 					}
-					_optionsSounds[_selected]->Play();
+					if(_titleSound.GetStatus() != SoundSource::Playing)
+						_optionsSounds[_selected]->Play();
 					break;
-				/*
-				case Keyboard::A:
-					cout << "On est dans MainMenu" << endl;
-					break;
-				case Keyboard::S:
-					cout << "On change pour Gameplay" << endl;
-					StateManager::enterState(StateManager::GAMEPLAY);
-					break;
-				*/
 			}
 		default: break;
 	}
@@ -134,19 +135,34 @@ void Menu::complexEvents() {
 }
 
 void Menu::update() {
-
+	if(_titleSound.GetStatus() != SoundSource::Playing && !_firstPlayedOnce) {
+		_optionsSounds[_selected]->Play();
+		_firstPlayedOnce = true;
+	}
 }
 
 void Menu::render() {
 	// Title shape
 	_app->Draw(_titleShape);
+	_app->Draw(_titleText);
 
 	// Item shapes
-	for(size_t i=0; i<_optionsShapes.size(); i++) {
-		if(i != _selected)
+	for(size_t i=0; i<_options.size(); i++) {
+		_app->Draw(*_optionsShapes[i]);
+		_app->Draw(*_optionsTexts[i]);
+	}
+
+	/*
+	// Selected above all
+	for(size_t i=0; i<_options.size(); i++) {
+		if(i != _selected) {
 			_app->Draw(*_optionsShapes[i]);
+			_app->Draw(*_optionsTexts[i]);
+		}
 	}
 	_app->Draw(*_optionsShapes[_selected]);
+	_app->Draw(*_optionsTexts[_selected]);
+	*/
 }
 
 void Menu::createTitleShape() {
@@ -158,6 +174,29 @@ void Menu::createTitleShape() {
 	_titleShape.SetOutlineThickness(20);
 	_titleShape.EnableOutline(true);
 	_titleShape.EnableFill(true);
+}
+
+void Menu::createTitleText() {
+	int x = Globals::getInstance()->getApp()->GetWidth()/2;
+	int y = Globals::getInstance()->getApp()->GetHeight()/10 + _titleHeight/2;
+
+	_titleText.SetString(_title);
+	_titleText.SetFont(_font);
+	_titleText.SetCharacterSize(_fontSize);
+
+	// Auto adapt the font
+	while(_titleText.GetRect().Width < _titleWidth) {
+		_fontSize++;
+		_titleText.SetCharacterSize(_fontSize);
+	}
+	while(_titleText.GetRect().Width > _titleWidth) {
+		_fontSize--;
+		_titleText.SetCharacterSize(_fontSize);
+	}
+
+	_titleText.SetOrigin(_titleText.GetRect().Width/2, _titleText.GetRect().Height/2);
+	_titleText.SetColor(TITLE_TEXT_COLOR);
+	_titleText.Move(x,y);
 }
 
 void Menu::createItemShape(int i, Shape* rectangle) {
@@ -187,6 +226,26 @@ void Menu::createRectangle(Shape* rectangle, int x, int y, int w, int h,
 	rectangle->AddPoint(Vector2f(x,y+h), color, borderColor); // bas gauche
 }
 
+void Menu::createItemText(int i, Text* text) {
+	text->SetString(_options[i]);
+	text->SetFont(_font);
+	text->SetCharacterSize(_fontSize);
+
+	text->SetOrigin(text->GetRect().Width/2, 0);
+
+	int x = Globals::getInstance()->getApp()->GetWidth()/2;
+	int y;
+	if(i == _selected) {
+		y = Globals::getInstance()->getApp()->GetHeight()/3 + _selItemHeight * i;
+		text->SetColor(SEL_ITEM_TEXT_COLOR);
+	}
+	else {
+		y = Globals::getInstance()->getApp()->GetHeight()/3 + _itemHeight * i;
+		text->SetColor(ITEM_TEXT_COLOR);
+	}
+	text->Move(x,y);
+}
+
 void Menu::setSelected(int i) {
 	// Delete unused pointers to shapes
 	// and create new shapes in their place
@@ -194,6 +253,13 @@ void Menu::setSelected(int i) {
 	delete _optionsShapes[i];
 	_optionsShapes[_selected] = new Shape();
 	_optionsShapes[i] = new Shape();
+
+	// Delete unused pointers to texts
+	// and create new texts in their place
+	delete _optionsTexts[_selected];
+	delete _optionsTexts[i];
+	_optionsTexts[_selected] = new Text();
+	_optionsTexts[i] = new Text();
 	
 	int old_selected = _selected;
 	_selected = i;
@@ -201,4 +267,8 @@ void Menu::setSelected(int i) {
 	// Set the new properties of the two shapes that changed
 	createItemShape(old_selected, _optionsShapes[old_selected]);
 	createItemShape(_selected, _optionsShapes[_selected]);
+
+	// Set the new properties of the two texts that changed
+	createItemText(old_selected, _optionsTexts[old_selected]);
+	createItemText(_selected, _optionsTexts[_selected]);
 }
