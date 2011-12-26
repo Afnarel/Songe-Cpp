@@ -52,6 +52,19 @@ void MainMenu::simpleEvents(const sf::Event &event) {
 					cout << "On change pour Gameplay" << endl;
 					StateManager::enterState(StateManager::GAMEPLAY);
 					break;
+				case Keyboard::Return:
+					switch(_selected) {
+						case 0:
+							StateManager::enterState(StateManager::GAMEPLAY);
+							break;
+						case 1:
+						break;
+						case 2:
+						break;
+						case 3:
+							exit(EXIT_SUCCESS);
+						default: break;
+					}
 			}
 		default: break;
 	}

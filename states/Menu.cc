@@ -247,28 +247,30 @@ void Menu::createItemText(int i, Text* text) {
 }
 
 void Menu::setSelected(int i) {
-	// Delete unused pointers to shapes
-	// and create new shapes in their place
-	delete _optionsShapes[_selected];
-	delete _optionsShapes[i];
-	_optionsShapes[_selected] = new Shape();
-	_optionsShapes[i] = new Shape();
+	if(i != _selected) {
+		// Delete unused pointers to shapes
+		// and create new shapes in their place
+		delete _optionsShapes[_selected];
+		delete _optionsShapes[i];
+		_optionsShapes[_selected] = new Shape();
+		_optionsShapes[i] = new Shape();
 
-	// Delete unused pointers to texts
-	// and create new texts in their place
-	delete _optionsTexts[_selected];
-	delete _optionsTexts[i];
-	_optionsTexts[_selected] = new Text();
-	_optionsTexts[i] = new Text();
-	
-	int old_selected = _selected;
-	_selected = i;
+		// Delete unused pointers to texts
+		// and create new texts in their place
+		delete _optionsTexts[_selected];
+		delete _optionsTexts[i];
+		_optionsTexts[_selected] = new Text();
+		_optionsTexts[i] = new Text();
 
-	// Set the new properties of the two shapes that changed
-	createItemShape(old_selected, _optionsShapes[old_selected]);
-	createItemShape(_selected, _optionsShapes[_selected]);
+		int old_selected = _selected;
+		_selected = i;
 
-	// Set the new properties of the two texts that changed
-	createItemText(old_selected, _optionsTexts[old_selected]);
-	createItemText(_selected, _optionsTexts[_selected]);
+		// Set the new properties of the two shapes that changed
+		createItemShape(old_selected, _optionsShapes[old_selected]);
+		createItemShape(_selected, _optionsShapes[_selected]);
+
+		// Set the new properties of the two texts that changed
+		createItemText(old_selected, _optionsTexts[old_selected]);
+		createItemText(_selected, _optionsTexts[_selected]);
+	}
 }
