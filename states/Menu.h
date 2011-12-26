@@ -7,8 +7,7 @@ class Menu : public State {
 	protected:
 		Menu(std::string title, std::string titleVoice, std::string _musicFile);
 
-		//const sf::Color ITEM_COLOR(125,120,120);
-		//const sf::Color ITEM_COLOR(125,120,120);
+		const int BORDER_THICKNESS;
 
 		const sf::Color TITLE_COLOR;
 		const sf::Color TITLE_BORDER_COLOR;
@@ -19,6 +18,8 @@ class Menu : public State {
 		const sf::Color SEL_ITEM_COLOR;
 		const sf::Color SEL_ITEM_BORDER_COLOR;
 		const sf::Color SEL_ITEM_TEXT_COLOR;
+
+		const int VOLUME_WHEN_PLAYING;
 
 		const std::string FONT_NAME;
 		sf::Font _font;

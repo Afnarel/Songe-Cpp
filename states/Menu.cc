@@ -6,6 +6,8 @@ using namespace sf;
 Menu::Menu(string title, string titleVoice, string musicFile) : 
 	State(),
 	FONT_NAME("sansation"),
+	VOLUME_WHEN_PLAYING(0),
+	BORDER_THICKNESS(10),
 	TITLE_COLOR(Color(250,240,240)),
 	TITLE_BORDER_COLOR(Color(255,255,255)),
 	TITLE_TEXT_COLOR(Color::Black),
@@ -88,6 +90,7 @@ void Menu::init() {
 void Menu::reset() {
 	setSelected(0);
 	_firstPlayedOnce = false;
+	_music.SetVolume(100);
 }
 
 void Menu::onEnter() {
@@ -111,8 +114,10 @@ void Menu::simpleEvents(const sf::Event &event) {
 					else {
 						setSelected(_options.size()-1);
 					}
-					if(_titleSound.GetStatus() != SoundSource::Playing)
+					if(_titleSound.GetStatus() != SoundSource::Playing) {
+						_music.SetVolume(VOLUME_WHEN_PLAYING);
 						_optionsSounds[_selected]->Play();
+					}
 					break;
 				case Keyboard::Down:
 				case Keyboard::Right:
@@ -122,8 +127,10 @@ void Menu::simpleEvents(const sf::Event &event) {
 					else {
 						setSelected(0);
 					}
-					if(_titleSound.GetStatus() != SoundSource::Playing)
+					if(_titleSound.GetStatus() != SoundSource::Playing) {
+						_music.SetVolume(VOLUME_WHEN_PLAYING);
 						_optionsSounds[_selected]->Play();
+					}
 					break;
 			}
 		default: break;
@@ -138,6 +145,16 @@ void Menu::update() {
 	if(_titleSound.GetStatus() != SoundSource::Playing && !_firstPlayedOnce) {
 		_optionsSounds[_selected]->Play();
 		_firstPlayedOnce = true;
+	}
+
+	if(_music.GetVolume() < 100) {
+		bool playing = false;
+		for(size_t i=0; i<_options.size() && !playing; i++) {
+			if(_optionsSounds[i]->GetStatus() == SoundSource::Playing)
+				playing = true;
+		}
+		if(!playing)
+			_music.SetVolume(_music.GetVolume() + 1);
 	}
 }
 
@@ -171,7 +188,7 @@ void Menu::createTitleShape() {
 	createRectangle(&_titleShape, x, y, _titleWidth, _titleHeight,
 		TITLE_COLOR, TITLE_BORDER_COLOR);
 
-	_titleShape.SetOutlineThickness(20);
+	_titleShape.SetOutlineThickness(BORDER_THICKNESS);
 	_titleShape.EnableOutline(true);
 	_titleShape.EnableFill(true);
 }
@@ -213,7 +230,7 @@ void Menu::createItemShape(int i, Shape* rectangle) {
 			ITEM_COLOR, ITEM_BORDER_COLOR);
 	}
 
-	rectangle->SetOutlineThickness(20);
+	rectangle->SetOutlineThickness(BORDER_THICKNESS);
 	rectangle->EnableOutline(true);
 	rectangle->EnableFill(true);
 }
