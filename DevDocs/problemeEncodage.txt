@@ -1,0 +1,8 @@
+Si les caractères accentués ne s'affichent pas correctement, 
+il faut mettre le texte dans une sf::String et utiliser la méthode
+ToWideString() de cette sf::String : 
+
+sf::String _title("Avez-vous déjà joué au jeu ?");
+Text _titleText;
+_titleText.SetString(_title.ToWideString()); 
+app.Draw(_titleText);

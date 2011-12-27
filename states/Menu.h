@@ -5,7 +5,7 @@
 
 class Menu : public State {
 	protected:
-		Menu(std::string title, std::string titleVoice, std::string _musicFile);
+		Menu(sf::String title, std::string titleVoice, std::string _musicFile);
 
 		const int BORDER_THICKNESS;
 
@@ -39,7 +39,7 @@ class Menu : public State {
 		sf::Music _music;
 
 		// Title
-		std::string _title;
+		sf::String _title;
 		std::string _titleVoice;
 		sf::Music _titleSound;
 		sf::Shape _titleShape;

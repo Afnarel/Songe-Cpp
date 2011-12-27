@@ -7,6 +7,14 @@ int main() {
  // Create the main window
  RenderWindow window(VideoMode(800, 600), "SFML window");
 
+ SoundBuffer soundBuffer;
+ Sound son;
+ if (!soundBuffer.LoadFromFile("bienvenue.ogg"))
+     return EXIT_FAILURE;
+son.SetBuffer(soundBuffer);
+//Sound son(soundBuffer);
+son.Play();
+
  // Load a sprite to display
  Texture texture;
  if (!texture.LoadFromFile("background.jpg"))

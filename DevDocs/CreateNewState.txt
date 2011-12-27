@@ -3,5 +3,5 @@
  *   - implement the abstract methods defined in State (init, update, render)
  *   - add a new name in the StateName enum in StateManager
  *   - add a new "case" in StateManager::enterState to associate this name with the class
- *   - don't forget the include of the new class in StateManager.h
+ *   - don't forget the include of the new class in StateManager.h and modify the Makefile !
 */

@@ -21,7 +21,7 @@ int main() {
 	app->EnableVerticalSync(Conf::ENABLE_VSYNC);
 	app->ShowMouseCursor(Conf::SHOW_CURSOR);
 
-	StateManager::enterState(StateManager::MAINMENU);
+	StateManager::enterState(StateManager::INITIALMENU);
 
 	while (app->IsOpened()) {
 		State *state = StateManager::getCurrentState();

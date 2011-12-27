@@ -2,18 +2,21 @@
 
 using namespace std;
 
-State* StateManager::currentState = NULL;
+State* StateManager::_currentState = NULL;
 
 void StateManager::enterState(StateName name, bool reinit) {
-	if(currentState != NULL)
-		currentState->onLeave();
+	if(_currentState != NULL)
+		_currentState->onLeave();
 
 	switch(name) {
+		case INITIALMENU:
+			_currentState = InitialMenu::getInstance(reinit);
+			break;
 		case MAINMENU:
-			currentState = MainMenu::getInstance(reinit);
+			_currentState = MainMenu::getInstance(reinit);
 			break;
 		case GAMEPLAY:
-			currentState = Gameplay::getInstance(reinit);
+			_currentState = Gameplay::getInstance(reinit);
 			break;
 		default:
 			ostringstream oss;
@@ -21,9 +24,9 @@ void StateManager::enterState(StateName name, bool reinit) {
 			Globals::getInstance()->error(oss.str());
 			break;
 	}
-	currentState->onEnter();
+	_currentState->onEnter();
 }
 
 State* StateManager::getCurrentState() {
-	return currentState;
+	return _currentState;
 }

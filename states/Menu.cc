@@ -3,9 +3,9 @@
 using namespace std;
 using namespace sf;
 
-Menu::Menu(string title, string titleVoice, string musicFile) : 
+Menu::Menu(String title, string titleVoice, string musicFile) : 
 	State(),
-	FONT_NAME("sansation"),
+	FONT_NAME("sansation"), //nv
 	VOLUME_WHEN_PLAYING(0),
 	BORDER_THICKNESS(10),
 	TITLE_COLOR(Color(250,240,240)),
@@ -43,15 +43,18 @@ void Menu::init() {
 	_firstPlayedOnce = false;
 
 	// Load background music
-	if(!_music.OpenFromFile(_musicFile)) {
-		Globals::getInstance()->error("File " + _musicFile + " could not be found.");
+	if(_musicFile != "") {
+		if(!_music.OpenFromFile(_musicFile)) {
+			Globals::getInstance()->error("File " + _musicFile + " could not be found.");
+		}
+		_music.SetLoop(true);
 	}
-	_music.SetLoop(true);
 
 	// Load title sound
 	if(!_titleSound.OpenFromFile(_titleVoice)) {
 		Globals::getInstance()->error("File " + _titleVoice + " could not be found.");
 	}
+
 
 	// Load options sounds
 	for(size_t i=0; i<_optionsVoices.size(); i++) {
@@ -90,16 +93,22 @@ void Menu::init() {
 void Menu::reset() {
 	setSelected(0);
 	_firstPlayedOnce = false;
-	_music.SetVolume(100);
+	if(_musicFile != "") {
+		_music.SetVolume(100);
+	}
 }
 
 void Menu::onEnter() {
 	_titleSound.Play();
-	_music.Play();
+	if(_musicFile != "") {
+		_music.Play();
+	}
 }
 
 void Menu::onLeave() {
-	_music.Stop();
+	if(_musicFile != "") {
+		_music.Stop();
+	}
 }
 
 void Menu::simpleEvents(const sf::Event &event) {
@@ -115,7 +124,9 @@ void Menu::simpleEvents(const sf::Event &event) {
 						setSelected(_options.size()-1);
 					}
 					if(_titleSound.GetStatus() != SoundSource::Playing) {
-						_music.SetVolume(VOLUME_WHEN_PLAYING);
+						if(_musicFile != "") {
+							_music.SetVolume(VOLUME_WHEN_PLAYING);
+						}
 						_optionsSounds[_selected]->Play();
 					}
 					break;
@@ -128,7 +139,9 @@ void Menu::simpleEvents(const sf::Event &event) {
 						setSelected(0);
 					}
 					if(_titleSound.GetStatus() != SoundSource::Playing) {
-						_music.SetVolume(VOLUME_WHEN_PLAYING);
+						if(_musicFile != "") {
+							_music.SetVolume(VOLUME_WHEN_PLAYING);
+						}
 						_optionsSounds[_selected]->Play();
 					}
 					break;
@@ -147,7 +160,7 @@ void Menu::update() {
 		_firstPlayedOnce = true;
 	}
 
-	if(_music.GetVolume() < 100) {
+	if(_musicFile != "" && _music.GetVolume() < 100) {
 		bool playing = false;
 		for(size_t i=0; i<_options.size() && !playing; i++) {
 			if(_optionsSounds[i]->GetStatus() == SoundSource::Playing)
@@ -197,7 +210,7 @@ void Menu::createTitleText() {
 	int x = Globals::getInstance()->getApp()->GetWidth()/2;
 	int y = Globals::getInstance()->getApp()->GetHeight()/10 + _titleHeight/2;
 
-	_titleText.SetString(_title);
+	_titleText.SetString(_title.ToWideString());
 	_titleText.SetFont(_font);
 	_titleText.SetCharacterSize(_fontSize);
 
