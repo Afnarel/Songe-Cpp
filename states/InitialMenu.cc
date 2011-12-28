@@ -5,7 +5,7 @@ using namespace sf;
 
 InitialMenu* InitialMenu::_instance = NULL;
 
-InitialMenu::InitialMenu() : Menu(
+InitialMenu::InitialMenu() : TextMenu(
 	sf::String(L"Avez-vous déjà joué au jeu ?"), // Title
 	Globals::getInstance()->getVoice("deja_joue"),
 	""

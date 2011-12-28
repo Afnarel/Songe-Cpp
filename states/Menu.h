@@ -5,32 +5,26 @@
 
 class Menu : public State {
 	protected:
-		Menu(sf::String title, std::string titleVoice, std::string _musicFile);
+		Menu(sf::String title, std::string titleVoice, std::string musicFile);
 
-		const int BORDER_THICKNESS;
-
-		const sf::Color TITLE_COLOR;
-		const sf::Color TITLE_BORDER_COLOR;
 		const sf::Color TITLE_TEXT_COLOR;
-		const sf::Color ITEM_COLOR;
-		const sf::Color ITEM_BORDER_COLOR;
 		const sf::Color ITEM_TEXT_COLOR;
-		const sf::Color SEL_ITEM_COLOR;
-		const sf::Color SEL_ITEM_BORDER_COLOR;
 		const sf::Color SEL_ITEM_TEXT_COLOR;
 
-		const int VOLUME_WHEN_PLAYING;
-
-		const std::string FONT_NAME;
-		sf::Font _font;
-
-		int _selected;
 		int _titleHeight;
 		int _titleWidth;
 		int _itemHeight;
 		int _itemWidth;
 		int _selItemHeight;
 		int _selItemWidth;
+
+		const int VOLUME_WHEN_PLAYING;
+
+		const std::string FONT_NAME;
+		const int FONT_SIZE;
+		sf::Font _font;
+
+		int _selected;
 
 		int _fontSize;
 
@@ -42,14 +36,12 @@ class Menu : public State {
 		sf::String _title;
 		std::string _titleVoice;
 		sf::Music _titleSound;
-		sf::Shape _titleShape;
 		sf::Text _titleText;
 
 		// Options
 		std::vector<std::string> _options;
 		std::vector<std::string> _optionsVoices;
 		std::vector<sf::Music*> _optionsSounds;
-		std::vector<sf::Shape*> _optionsShapes;
 		std::vector<sf::Text*> _optionsTexts;
 
 		bool _firstPlayedOnce;
@@ -59,23 +51,19 @@ class Menu : public State {
 		virtual std::vector<std::string> initOptionsVoices() = 0;
 
 		// Other methods
-		void createTitleShape();
 		void createTitleText();
-		void createItemShape(int index, sf::Shape* rectangle);
-		void createRectangle(sf::Shape* rectangle, int x, int y, int w, int h,
-			const sf::Color &color, const sf::Color &borderColor);
 		void createItemText(int index, sf::Text* text);
-		void setSelected(int i);
+		virtual void setSelected(int i);
 
 	public:
-		void init();
-		void reset();
-		void onEnter();
-		void onLeave();
-		void simpleEvents(const sf::Event &event);
-		void complexEvents();
-		void update();
-		void render();
+		virtual void init();
+		virtual void reset();
+		virtual void onEnter();
+		virtual void onLeave();
+		virtual void simpleEvents(const sf::Event &event);
+		virtual void complexEvents();
+		virtual void update();
+		virtual void render();
 };
 
 #endif

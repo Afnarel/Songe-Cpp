@@ -1,10 +1,10 @@
 #ifndef __INITIAL_MENU__
 #define __INITIAL_MENU__
 
-#include "Menu.h"
+#include "TextMenu.h"
 #include "StateManager.h"
 
-class InitialMenu : public Menu {
+class InitialMenu : public TextMenu {
 	private:
 		static InitialMenu *_instance;
 		InitialMenu();

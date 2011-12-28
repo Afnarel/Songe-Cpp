@@ -5,7 +5,7 @@ using namespace sf;
 
 MainMenu* MainMenu::_instance = NULL;
 
-MainMenu::MainMenu() : Menu(
+MainMenu::MainMenu() : TextMenu(
 	"Bienvenue dans l'univers de Songe", // Title
 	Globals::getInstance()->getVoice("bienvenue"),
 	Globals::getInstance()->getMusic("fond")
