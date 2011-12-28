@@ -45,3 +45,17 @@ string Globals::toString(T t) {
 	return t.str();
 }
 */
+
+/* **************************** *
+ * Setters for global variables *
+ * **************************** */
+ void Globals::setHasAlreadyPlayed(bool val) {
+ 	_hasAlreadyPlayed = val;
+ }
+
+/* **************************** *
+ * Getters for global variables *
+ * **************************** */
+ bool Globals::getHasAlreadyPlayed() {
+ 	return _hasAlreadyPlayed;
+ }

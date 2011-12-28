@@ -44,8 +44,10 @@ void InitialMenu::simpleEvents(const sf::Event &event) {
 				case Keyboard::Return:
 					switch(_selected) {
 						case 0:
+							Globals::getInstance()->setHasAlreadyPlayed(false);
 							break;
 						case 1:
+							Globals::getInstance()->setHasAlreadyPlayed(true);
 							break;
 						default: break;
 					}
