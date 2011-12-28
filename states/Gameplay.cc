@@ -47,12 +47,8 @@ void Gameplay::simpleEvents(const sf::Event &event) {
 	switch(event.Type) {
 		case Event::KeyPressed:
 			switch(event.Key.Code) {
-				case Keyboard::A:
-					cout << "On est dans Gameplay" << endl;
-					break;
-				case Keyboard::S:
-					cout << "On change pour MainMenu" << endl;
-					StateManager::enterState(StateManager::MAINMENU, true);
+				case Keyboard::Escape:
+					StateManager::enterState(StateManager::MAINMENU);
 					break;
 			}
 		default: break;

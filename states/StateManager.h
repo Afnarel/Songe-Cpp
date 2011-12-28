@@ -4,6 +4,7 @@
 #include "State.h"
 #include "InitialMenu.h"
 #include "MainMenu.h"
+#include "ChoicePersoMenu.h"
 #include "Gameplay.h"
 
 class StateManager {
@@ -14,6 +15,7 @@ class StateManager {
 		enum StateName {
 			INITIALMENU,
 			MAINMENU,
+			CHOICEPERSOMENU,
 			GAMEPLAY
 		};
 

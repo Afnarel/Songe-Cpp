@@ -39,7 +39,7 @@ class Menu : public State {
 		sf::Text _titleText;
 
 		// Options
-		std::vector<std::string> _options;
+		std::vector<sf::String> _options;
 		std::vector<std::string> _optionsVoices;
 		std::vector<sf::Music*> _optionsSounds;
 		std::vector<sf::Text*> _optionsTexts;
@@ -47,7 +47,7 @@ class Menu : public State {
 		bool _firstPlayedOnce;
 
 		// Virtual methods
-		virtual std::vector<std::string> initOptions() = 0;
+		virtual std::vector<sf::String> initOptions() = 0;
 		virtual std::vector<std::string> initOptionsVoices() = 0;
 
 		// Other methods

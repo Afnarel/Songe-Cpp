@@ -1,4 +1,14 @@
 Si les caractères accentués ne s'affichent pas correctement, 
+il faut les créer comme sf::String(L"éèàâê") :
+
+sf::String _title(L"Avez-vous déjà joué au jeu ?");
+Text _titleText;
+_titleText.SetString(_title); 
+app.Draw(_titleText);
+
+
+=========== La méthode ci-dessous est fausse ===========
+Si les caractères accentués ne s'affichent pas correctement, 
 il faut mettre le texte dans une sf::String et utiliser la méthode
 ToWideString() de cette sf::String : 
 

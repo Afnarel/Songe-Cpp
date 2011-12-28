@@ -22,10 +22,10 @@ InitialMenu* InitialMenu::getInstance(bool reinit) {
 	return _instance;
 }
 
-vector<string> InitialMenu::initOptions() {
-	vector<string> options;
-	options.push_back("Non");
-	options.push_back("Oui");
+vector<String> InitialMenu::initOptions() {
+	vector<String> options;
+	options.push_back(sf::String(L"Non"));
+	options.push_back(sf::String(L"Oui"));
 	return options;
 }
 
@@ -37,10 +37,12 @@ vector<string> InitialMenu::initOptionsVoices() {
 }
 
 void InitialMenu::simpleEvents(const sf::Event &event) {
-	Menu::simpleEvents(event);
+	TextMenu::simpleEvents(event);
 	switch(event.Type) {
 		case Event::KeyPressed:
 			switch(event.Key.Code) {
+				case Keyboard::Escape:
+					exit(EXIT_SUCCESS);
 				case Keyboard::Return:
 					switch(_selected) {
 						case 0:
@@ -52,6 +54,7 @@ void InitialMenu::simpleEvents(const sf::Event &event) {
 						default: break;
 					}
 					StateManager::enterState(StateManager::MAINMENU);
+					break;
 			}
 		default: break;
 	}

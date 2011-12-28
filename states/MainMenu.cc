@@ -6,7 +6,7 @@ using namespace sf;
 MainMenu* MainMenu::_instance = NULL;
 
 MainMenu::MainMenu() : TextMenu(
-	"Bienvenue dans l'univers de Songe", // Title
+	sf::String(L"Bienvenue dans l'univers de Songe"), // Title
 	Globals::getInstance()->getVoice("bienvenue"),
 	Globals::getInstance()->getMusic("fond")
 ) {}
@@ -22,12 +22,12 @@ MainMenu* MainMenu::getInstance(bool reinit) {
 	return _instance;
 }
 
-vector<string> MainMenu::initOptions() {
-	vector<string> options;
-	options.push_back("Jouer");
-	options.push_back("Scores");
-	options.push_back("Minijeux");
-	options.push_back("Quitter");
+vector<String> MainMenu::initOptions() {
+	vector<String> options;
+	options.push_back(sf::String(L"Jouer"));
+	options.push_back(sf::String(L"Scores"));
+	options.push_back(sf::String(L"Minijeux"));
+	options.push_back(sf::String(L"Quitter"));
 	return options;
 }
 
@@ -41,21 +41,17 @@ vector<string> MainMenu::initOptionsVoices() {
 }
 
 void MainMenu::simpleEvents(const sf::Event &event) {
-	Menu::simpleEvents(event);
+	TextMenu::simpleEvents(event);
 	switch(event.Type) {
 		case Event::KeyPressed:
 			switch(event.Key.Code) {
-				case Keyboard::A:
-					cout << "On est dans MainMenu" << endl;
-					break;
-				case Keyboard::S:
-					cout << "On change pour Gameplay" << endl;
-					StateManager::enterState(StateManager::GAMEPLAY);
+				case Keyboard::Escape:
+					StateManager::enterState(StateManager::INITIALMENU);
 					break;
 				case Keyboard::Return:
 					switch(_selected) {
 						case 0:
-							StateManager::enterState(StateManager::GAMEPLAY);
+							StateManager::enterState(StateManager::CHOICEPERSOMENU);
 							break;
 						case 1:
 						break;
@@ -65,6 +61,7 @@ void MainMenu::simpleEvents(const sf::Event &event) {
 							exit(EXIT_SUCCESS);
 						default: break;
 					}
+					break;
 			}
 		default: break;
 	}

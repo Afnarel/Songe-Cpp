@@ -1,20 +1,20 @@
-#ifndef __MAIN_MENU__
-#define __MAIN_MENU__
+#ifndef __CHOICE_PERSO_MENU__
+#define __CHOICE_PERSO_MENU__
 
-#include "TextMenu.h"
+#include "ImageMenu.h"
 #include "StateManager.h"
 
-class MainMenu : public TextMenu {
+class ChoicePersoMenu : public ImageMenu {
 	private:
-		static MainMenu *_instance;
-		MainMenu();
+		static ChoicePersoMenu *_instance;
+		ChoicePersoMenu();
 
 		// Redefinition des methodes virtuelles de Menu
 		std::vector<sf::String> initOptions();
 		std::vector<std::string> initOptionsVoices();
 
 	public:
-		static MainMenu* getInstance(bool reinit = false);
+		static ChoicePersoMenu* getInstance(bool reinit = false);
 
 		// Surcharge des methodes de Menu
 		void simpleEvents(const sf::Event &event);

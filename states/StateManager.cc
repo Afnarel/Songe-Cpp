@@ -15,6 +15,9 @@ void StateManager::enterState(StateName name, bool reinit) {
 		case MAINMENU:
 			_currentState = MainMenu::getInstance(reinit);
 			break;
+		case CHOICEPERSOMENU:
+			_currentState = ChoicePersoMenu::getInstance(reinit);
+			break;
 		case GAMEPLAY:
 			_currentState = Gameplay::getInstance(reinit);
 			break;

@@ -10,7 +10,7 @@ class InitialMenu : public TextMenu {
 		InitialMenu();
 
 		// Redefinition des methodes virtuelles de Menu
-		std::vector<std::string> initOptions();
+		std::vector<sf::String> initOptions();
 		std::vector<std::string> initOptionsVoices();
 
 	public:

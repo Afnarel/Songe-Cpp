@@ -171,18 +171,20 @@ void Menu::createTitleText() {
 	int x = Globals::getInstance()->getApp()->GetWidth()/2;
 	int y = Globals::getInstance()->getApp()->GetHeight()/10 + _titleHeight/2;
 
-	_titleText.SetString(_title.ToWideString());
+	_titleText.SetString(_title);
 	_titleText.SetFont(_font);
 	_titleText.SetCharacterSize(_fontSize);
 
-	// Auto adapt the font
-	while(_titleText.GetRect().Width < _titleWidth) {
-		_fontSize++;
-		_titleText.SetCharacterSize(_fontSize);
-	}
-	while(_titleText.GetRect().Width > _titleWidth) {
-		_fontSize--;
-		_titleText.SetCharacterSize(_fontSize);
+	if(!_title.IsEmpty()) {
+		// Auto adapt the font
+		while(_titleText.GetRect().Width < _titleWidth) {
+			_fontSize++;
+			_titleText.SetCharacterSize(_fontSize);
+		}
+		while(_titleText.GetRect().Width > _titleWidth) {
+			_fontSize--;
+			_titleText.SetCharacterSize(_fontSize);
+		}
 	}
 
 	_titleText.SetOrigin(_titleText.GetRect().Width/2, _titleText.GetRect().Height/2);
