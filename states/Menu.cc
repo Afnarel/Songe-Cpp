@@ -74,6 +74,7 @@ void Menu::init() {
 
 		_optionsTexts.push_back(text);
 	}
+
 }
 
 void Menu::reset() {
@@ -94,6 +95,10 @@ void Menu::onEnter() {
 void Menu::onLeave() {
 	if(_musicFile != "") {
 		_music.Stop();
+	}
+	_titleSound.Stop();
+	for(size_t i=0; i<_optionsSounds.size(); i++) {
+		_optionsSounds[i]->Stop();
 	}
 }
 
@@ -212,7 +217,13 @@ void Menu::createItemText(int i, Text* text) {
 	text->Move(x,y);
 }
 
+/*
+ * WARNING: Must be called last when redefined
+ * since it changes the value of _selected !
+*/
 void Menu::setSelected(int i) {
+	// old_selected : _selected
+	// new_selected : i
 	if(i != _selected) {
 		// Delete unused pointers to texts
 		// and create new texts in their place

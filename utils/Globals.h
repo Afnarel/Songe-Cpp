@@ -18,6 +18,7 @@ class Globals {
 
 		std::string getVoice(std::string name);
 		std::string getMusic(std::string name);
+		std::string getImage(std::string name);
 		std::string getFont(std::string name);
 		void error(std::string error);
 

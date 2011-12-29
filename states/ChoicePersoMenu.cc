@@ -40,6 +40,15 @@ vector<string> ChoicePersoMenu::initOptionsVoices() {
 	return voices;
 }
 
+vector<string> ChoicePersoMenu::initImages() {
+	vector<string> images;
+	images.push_back(Globals::getInstance()->getImage("interrogation.png"));
+	images.push_back(Globals::getInstance()->getImage("interrogation.png"));
+	images.push_back(Globals::getInstance()->getImage("tux.png"));
+	images.push_back(Globals::getInstance()->getImage("lama.png"));
+	return images;
+}
+
 void ChoicePersoMenu::simpleEvents(const sf::Event &event) {
 	ImageMenu::simpleEvents(event);
 	switch(event.Type) {

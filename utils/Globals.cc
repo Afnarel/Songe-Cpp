@@ -28,6 +28,10 @@ string Globals::getMusic(string name) {
 	return Conf::SND_MUSIC_PATH + name + ".ogg";
 }
 
+string Globals::getImage(string name) {
+	return Conf::IMG_PATH + name;
+}
+
 string Globals::getFont(string name) {
 	return Conf::FONT_PATH + name + ".ttf";
 }

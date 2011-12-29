@@ -52,7 +52,7 @@ class Menu : public State {
 
 		// Other methods
 		void createTitleText();
-		void createItemText(int index, sf::Text* text);
+		virtual void createItemText(int index, sf::Text* text);
 		virtual void setSelected(int i);
 
 	public:

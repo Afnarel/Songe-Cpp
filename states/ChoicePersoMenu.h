@@ -13,6 +13,9 @@ class ChoicePersoMenu : public ImageMenu {
 		std::vector<sf::String> initOptions();
 		std::vector<std::string> initOptionsVoices();
 
+		// Redefinition des methodes virtuelles de ImageMenu
+		std::vector<std::string> initImages();
+
 	public:
 		static ChoicePersoMenu* getInstance(bool reinit = false);
 
